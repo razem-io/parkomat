@@ -1,9 +1,8 @@
 name := """parkomat"""
-scalaVersion := "2.12.3"
 maintainer := "julian+parkomat@razem.io"
 
 lazy val commonSettings = Seq(
-  version := "0.0.1-SNAPSHOT",
+  version := "0.0.1",
   scalaVersion := "2.12.3",
   organization := "io.razem"
 )
