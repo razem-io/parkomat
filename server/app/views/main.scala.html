@@ -1,0 +1,39 @@
+@(title: String)(content: Html)(implicit r: Request[_])
+@import buildinfo.BuildInfo
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>@title</title>
+  <link rel="stylesheet" href="@routes.Assets.versioned("lib/font-awesome/css/font-awesome.min.css")">
+  <link rel="stylesheet" href="@routes.Assets.versioned("lib/bulma/css/bulma.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+  <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+</head>
+<body data-ws-url="@routes.Application.ws.webSocketURL()">
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-four-fifths">
+            <h1 class="title">
+              Parkomat
+            </h1>
+            <p class="subtitle">
+            </p>
+          </div>
+          <div class="column">
+            <div class="control is-pulled-right">
+              <div class="tags has-addons">
+                <span class="tag is-dark">version</span>
+                <span class="tag is-info">@BuildInfo.version</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    @content
+    @scalajs.html.scripts("client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)
+</body>
+</html>

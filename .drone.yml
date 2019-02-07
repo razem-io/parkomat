@@ -1,0 +1,35 @@
+workspace:
+  base: /parkomat
+  path: src/github.com/razem-io/parkomat
+
+pipeline:
+  build:
+    image: hseeberger/scala-sbt:8u181_2.12.8_1.2.8
+    commands:
+    - sbt dist
+    - sbt universal:packageZipTarball
+  docker_dev:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password ]
+    repo: razemio/parkomat
+    dockerfile: docker/Dockerfile
+    tags:
+    - dev
+  github_release:
+    image: plugins/github-release
+    secrets: [ github_release_api_key ]
+    files:
+    - server/target/universal/parkomat-${DRONE_TAG}.zip
+    - server/target/universal/parkomat-${DRONE_TAG}.tgz
+    checksum:
+    - sha512
+    when:
+      event: tag
+  docker_release:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password ]
+    repo: razemio/parkomat
+    dockerfile: docker/Dockerfile
+    auto_tag: true
+    when:
+      event: tag
