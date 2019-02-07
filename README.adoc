@@ -1,0 +1,30 @@
+= Parkomat
+image::https://github.razem.io/api/badges/razem-io/parkomat/status.svg[Build Status]
+
+Bringing people underground since 2019.
+
+== Requirements
+* Java 8
+* sbt
+
+== Configuration
+
+In `server/conf` copy `application.sample.conf` to `application.conf` and adjust it
+to your liking.
+
+== Usage
+....
+sbt run
+....
+
+== Package
+
+=== Zip
+....
+sbt dist
+....
+
+=== Tgz
+....
+sbt universal:packageZipTarball
+....

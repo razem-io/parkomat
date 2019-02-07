@@ -1,9 +1,11 @@
-
-
 name := """parkomat"""
-organization := "io.razem"
+maintainer := "julian+parkomat@razem.io"
 
-version := "0.0.1-SNAPSHOT"
+lazy val commonSettings = Seq(
+  version := "0.0.1",
+  scalaVersion := "2.12.3",
+  organization := "io.razem"
+)
 
 val upickleV = "0.4.4"
 lazy val server = (project in file("server")).settings(commonSettings).settings(
@@ -42,10 +44,6 @@ lazy val client = (project in file("client")).settings(commonSettings).settings(
 lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).settings(commonSettings)
 lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
-
-lazy val commonSettings = Seq(
-  scalaVersion := "2.12.3"
-)
 
 // loads the server project at sbt startup
 onLoad in Global := (onLoad in Global).value andThen {s: State => "project server" :: s}

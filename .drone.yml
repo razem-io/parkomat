@@ -12,7 +12,7 @@ pipeline:
     image: plugins/docker
     secrets: [ docker_username, docker_password ]
     repo: razemio/parkomat
-    dockerfile: docker/Dockerfile
+    dockerfile: Dockerfile
     tags:
     - dev
   github_release:
@@ -29,7 +29,7 @@ pipeline:
     image: plugins/docker
     secrets: [ docker_username, docker_password ]
     repo: razemio/parkomat
-    dockerfile: docker/Dockerfile
+    dockerfile: Dockerfile
     auto_tag: true
     when:
       event: tag
