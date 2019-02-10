@@ -61,10 +61,16 @@ object ParkomatJsApp {
   def refreshParkingSpots(parkingStatus: ParkingStatus): Unit = {
     val elStatus = dom.document.getElementById("status")
     val elStatusTime = dom.document.getElementById("statustime")
+    val elStatusDetail = dom.document.getElementById("status_detail")
 
     val date = new Date(parkingStatus.lastUpdate)
 
-    elStatus.innerHTML = parkingStatus.freeSpots + (if(parkingStatus.freeSpots != 1) " Parkplätze" else " Parkplatz") + " frei"
+    val freeSpots = parkingStatus.freeLiftSpots + parkingStatus.freeNormalSpots
+
+    val liftStatusText = if(parkingStatus.freeLiftSpots == 1) "einer" else parkingStatus.freeLiftSpots
+
+    elStatus.innerHTML = freeSpots + (if(freeSpots != 1) " Parkplätze" else " Parkplatz") + " frei"
+    elStatusDetail.innerHTML = parkingStatus.freeNormalSpots + " normale und " + liftStatusText + " auf der Hebebühne"
     elStatusTime.innerHTML = "Letztes Update: " + date.toLocaleTimeString() + " / " + date.toLocaleDateString()
   }
 

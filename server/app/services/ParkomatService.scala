@@ -24,7 +24,7 @@ class ParkomatService @Inject()(config: Configuration, actorSystem: ActorSystem,
 
   private val a_lastResult: Atomic[ParkomatStatsFreeSpotsResponse] = Atomic(ParkomatStatsFreeSpotsResponse.empty())
 
-  private val a_lastStatus: Atomic[ParkingStatus] = Atomic(ParkingStatus(0,0))
+  private val a_lastStatus: Atomic[ParkingStatus] = Atomic(ParkingStatus(0,0,0))
 
   val backendUrl: String = config.get[String]("parkomat.backend.url")
 
@@ -54,6 +54,6 @@ class ParkomatService @Inject()(config: Configuration, actorSystem: ActorSystem,
 
 object ParkomatService {
   def responseToStatus(response: ParkomatStatsFreeSpotsResponse): ParkingStatus = {
-    ParkingStatus(response.timestamp.toEpochMilli, response.freeNormalPlaces.size + response.freeLiftPlaces.size)
+    ParkingStatus(response.timestamp.toEpochMilli, response.freeNormalPlaces.size, response.freeLiftPlaces.size)
   }
 }

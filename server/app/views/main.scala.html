@@ -1,5 +1,5 @@
 @(title: String)(content: Html)(implicit r: Request[_])
-@import buildinfo.BuildInfo
+
 
 <!DOCTYPE html>
 
@@ -9,32 +9,17 @@
   <link rel="stylesheet" href="@routes.Assets.versioned("lib/font-awesome/css/font-awesome.min.css")">
   <link rel="stylesheet" href="@routes.Assets.versioned("lib/bulma/css/bulma.css")">
   <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-  <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="@routes.Assets.versioned("apple-touch-icon.png")">
+  <link rel="icon" type="image/png" sizes="32x32" href="@routes.Assets.versioned("favicon-32x32.png")">
+  <link rel="icon" type="image/png" sizes="16x16" href="@routes.Assets.versioned("favicon-16x16.png")">
+  <link rel="manifest" href="@routes.Assets.versioned("site.webmanifest")">
+  <link rel="mask-icon" href="@routes.Assets.versioned("safari-pinned-tab.svg")" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 </head>
 <body data-ws-url="@routes.Application.ws.webSocketURL()">
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-four-fifths">
-            <h1 class="title">
-              Parkomat
-            </h1>
-            <p class="subtitle">
-            </p>
-          </div>
-          <div class="column">
-            <div class="control is-pulled-right">
-              <a href="https://github.com/razem-io/parkomat" target="_blank">
-                <div class="tags has-addons">
-                  <span class="tag is-dark">version</span>
-                  <span class="tag is-info">@BuildInfo.version</span>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+
     @content
     @scalajs.html.scripts("client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)
 </body>

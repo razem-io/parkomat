@@ -1,11 +1,60 @@
 @()(implicit r: Request[_])
-
+@import buildinfo.BuildInfo
 
 @main("Parkomat") {
-<section class="section">
-  <div class="container">
-    <div class="has-text-centered is-size-1 " id="status"></div>
-    <div class="has-text-centered is-size-4 " id="statustime"></div>
-  </div>
+<section class="hero is-fullheight">
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <h1 class="navbar-item is-size-3">
+                        Parkomat
+                    </h1>
+                    <span class="navbar-burger burger" data-target="navbarMenuHeroB">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </span>
+                </div>
+                <div id="navbarMenuHeroB" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item" href="https://github.com/razem-io/parkomat" target="_blank">
+                            <div class="tags has-addons">
+                                <span class="tag is-dark">version</span>
+                                <span class="tag is-info">@BuildInfo.version</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <div class="has-text-centered is-size-1" id="status"></div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column">
+                    <div class="has-text-centered is-size-5" id="status_detail">11</div>
+                </div>
+            </div>
+
+            <div class="has-text-centered is-size-4 " id="statustime"></div>
+        </div>
+    </div>
+    <div class="hero-foot">
+        <div class="has-text-centered" id="footer">
+            <p>
+                <strong>Parkomat</strong> is a hobby project. The source code is
+                licensed under
+                <a href="https://github.com/razem-io/parkomat/blob/develop/LICENSE.md">MIT</a> and
+                can be found on <a href="https://github.com/razem-io/parkomat/">Github</a>.
+            </p>
+        </div>
+    </div>
 </section>
 }
