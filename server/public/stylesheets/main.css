@@ -5,3 +5,39 @@
 #footer {
     margin-bottom: 25px;
 }
+
+.hero-head {
+    margin: 25px;
+}
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 1025px) {
+  #status {
+    font-size:7vw;
+  }
+  #status_detail {
+    font-size:2vw;
+  }
+  #statustime {
+    font-size:1.5vw;
+  }
+  #footertext {
+    font-size:1vw;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 1024px) {
+  #status {
+    font-size:10vw;
+  }
+  #status_detail {
+    font-size:4vw;
+  }
+  #statustime {
+    font-size:3.5vw;
+  }
+  #footertext {
+    font-size:2vw;
+  }
+}
