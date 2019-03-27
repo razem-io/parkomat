@@ -12,7 +12,9 @@ class Application @Inject()(cc: ControllerComponents, parkomatService: ParkomatS
                            (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
 
   def index = Action { implicit request =>
-    Ok(views.html.index())
+    parkomatService.lastStatus.statusText
+
+    Ok(views.html.index(parkomatService.lastStatus))
   }
 
   def ws(): WebSocket = WebSocket.accept[String, String] { implicit request =>

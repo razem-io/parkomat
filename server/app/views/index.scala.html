@@ -1,5 +1,6 @@
-@()(implicit r: Request[_])
 @import buildinfo.BuildInfo
+@import shared.models.ParkingStatus
+@(status: ParkingStatus)(implicit r: Request[_])
 
 @main("Parkomat") {
 <section class="hero is-fullheight">
@@ -28,22 +29,22 @@
     </div>
     <div class="hero-body">
         <div class="container is-fluid">
-            <div class="has-text-centered" id="status"></div>
+            <div class="has-text-centered" id="status">@status.statusText</div>
 
             <div class="columns">
                 <div class="column">
-                    <div class="has-text-centered" id="status_detail">11</div>
+                    <div class="has-text-centered" id="status_detail">@status.statusDetailText</div>
                 </div>
             </div>
 
-            <div class="has-text-centered" id="statustime"></div>
+            <div class="has-text-centered" id="statustime">@status.statusUpdateText</div>
         </div>
     </div>
     <div class="hero-foot">
         <div class="has-text-centered is-size-5-mobile" id="footer">
             <p id="footertext">
                 <strong>Parkomat</strong> is Open Source. It is licensed under
-                <a href="https://github.com/razem-io/parkomat/blob/develop/LICENSE.md">MIT</a>.<br>
+                <a href="https://github.com/razem-io/parkomat/blob/master/LICENSE">GPL v3</a>.<br>
                 Source code can be found on <a href="https://github.com/razem-io/parkomat/">Github</a>.
             </p>
         </div>

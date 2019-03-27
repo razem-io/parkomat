@@ -63,15 +63,9 @@ object ParkomatJsApp {
     val elStatusTime = dom.document.getElementById("statustime")
     val elStatusDetail = dom.document.getElementById("status_detail")
 
-    val date = new Date(parkingStatus.lastUpdate)
-
-    val freeSpots = parkingStatus.freeLiftSpots + parkingStatus.freeNormalSpots
-
-    val liftStatusText = if(parkingStatus.freeLiftSpots == 1) "einer" else parkingStatus.freeLiftSpots
-
-    elStatus.innerHTML = freeSpots + (if(freeSpots != 1) " Parkplätze" else " Parkplatz") + " frei"
-    elStatusDetail.innerHTML = parkingStatus.freeNormalSpots + " normale und " + liftStatusText + " auf der Hebebühne"
-    elStatusTime.innerHTML = "Letztes Update: " + date.toLocaleTimeString() + " / " + date.toLocaleDateString()
+    elStatus.innerHTML = parkingStatus.statusText
+    elStatusDetail.innerHTML = parkingStatus.statusDetailText
+    elStatusTime.innerHTML = parkingStatus.statusUpdateText
   }
 
   def getWebsocketUri(document: Document): String = {

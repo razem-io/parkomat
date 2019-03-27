@@ -1,6 +1,6 @@
 package services
 
-import java.time.ZonedDateTime
+import java.time.{Instant, ZonedDateTime}
 import java.time.format.DateTimeFormatterBuilder
 
 import akka.actor.{ActorRef, ActorSystem}
@@ -26,20 +26,16 @@ class ParkomatService @Inject()(config: Configuration, actorSystem: ActorSystem,
 
   private val a_lastResult: Atomic[Array[LiveParkingSpotResponse]] = Atomic(Array[LiveParkingSpotResponse]())
 
-  private val a_lastStatus: Atomic[ParkingStatus] = Atomic(ParkingStatus(0,0,0))
+  private val a_lastStatus: Atomic[ParkingStatus] = Atomic(ParkingStatus(Instant.ofEpochMilli(0),0,0))
 
   val backendUrl: String = config.get[String]("parkomat.backend.url")
 
 
   // 2019-02-11T11:16:59.399+0000
   private val dateTimeFormatter = new DateTimeFormatterBuilder()
-    // here is the same as your code
     .appendPattern("yyyy-MM-dd").appendLiteral('T')
-    // time (hour/minute/seconds)
     .appendPattern("HH:mm:ss.SSS")
-    // offset
     .appendOffset("+HHmm", "Z")
-    // create formatter
     .toFormatter()
 
 
@@ -90,7 +86,7 @@ object ParkomatService {
     .sortBy(_.toEpochSecond)
     .lastOption.map(t => {
       ParkingStatus(
-        lastUpdate = t.toInstant.toEpochMilli,
+        lastUpdate = t.toInstant,
         freeNormalSpots = responses.seq.filter(_.occupied.exists(_ == false)).count(r => !liftSpaces.contains(r.parkingId)),
         freeLiftSpots = responses.seq.filter(_.occupied.exists(_ == false)).count(r => liftSpaces.contains(r.parkingId))
       )
