@@ -22,7 +22,6 @@ class ParkomatWebSocketActor(out: ActorRef, parkomatService: ParkomatService) ex
       m match {
         case ParkomatConnect =>
           Logger.debug("Client connected: " + out)
-          out ! write(parkomatService.lastStatus)
         case s: ParkingStatus =>
           out ! write(s)
         case unknownMsg => Logger.error("Unknown message: " + unknownMsg)
