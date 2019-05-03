@@ -1,0 +1,15 @@
+version: '3'
+services:
+  influxdb:
+    image: influxdb:1.7
+    ports:
+      - 127.0.0.1:8086:8086
+  grafana:
+    image: grafana/grafana:6.1.6
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_DOMAIN=localhost
+    ports:
+      - 127.0.0.1:3000:3000

@@ -13,9 +13,10 @@ import shared.models.api.LiveParkingSpotResponse
 
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContextExecutor, Future}
+import scala.util.{Failure, Success}
 
 @Singleton
-class ParkomatService @Inject()(config: Configuration, actorSystem: ActorSystem, ws: WSClient) {
+class ParkomatService @Inject()(config: Configuration, actorSystem: ActorSystem, ws: WSClient, influxDbService: InfluxDbService) {
   import ParkomatService._
 
   private implicit val dispatcherEC: ExecutionContextExecutor = actorSystem.dispatcher
@@ -63,8 +64,20 @@ class ParkomatService @Inject()(config: Configuration, actorSystem: ActorSystem,
       .map(r => a_lastResult.transformAndGet(_ => r))
       .map(r => responseToStatus(r).map(s => a_lastStatus.transformAndGet(_ => s)))
 
-    result.failed.foreach(ex => logger.error("", ex))
-    result.foreach(_.foreach(notifyActors))
+    result.onComplete {
+      case Success(s) =>
+        s match {
+          case Some(x) =>
+            notifyActors(x)
+            influxDbService.writeParkingStatusUpdate(x)
+          case _ =>
+            logger.error("Was not able to compose a valid parking status update: " + a_lastResult.get)
+        }
+
+        influxDbService.writeParkingSpotUpdate(a_lastResult.get)
+      case Failure(ex) =>
+        logger.error("Was not able to retrieve a valid response.", ex)
+    }
   }
 
   private def notifyActors(parkingStatus: ParkingStatus): Unit = {

@@ -23,6 +23,7 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     "org.webjars" % "font-awesome" % "4.7.0",
     "org.webjars" % "jquery" % "3.2.1",
     "com.lihaoyi" %%% "upickle" % upickleV,
+    "com.paulgoldbaum" %% "scala-influxdb-client" % "0.6.1",
     guice,
     "org.scalatest" %% "scalatest" % "3.0.4" % Test,
     "org.scalamock" %% "scalamock" % "4.0.0" % Test,
