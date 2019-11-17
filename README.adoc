@@ -2,7 +2,10 @@
 
 image::https://github.razem.io/api/badges/razem-io/parkomat/status.svg[Build Status]
 
-Bringing people underground since 2019.
+Bringing people underground since 2019. A frontend to display current status of parking spaces.
+
+== Demo
+* https://parkom.at[parkom.at]
 
 == Requirements
 * Java 8
